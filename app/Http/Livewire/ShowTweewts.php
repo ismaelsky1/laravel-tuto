@@ -4,13 +4,21 @@ namespace App\Http\Livewire;
 
 use App\Models\Tweet;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowTweewts extends Component
 {
-    public $message = "M";
+    use WithPagination;
+    public $content = "";
+
+    protected $rules = [
+        'content' => 'required|min:3|max:45'
+    ];
+
     public function render()
     {
-        $tweets = Tweet::with('user')->get();
+
+        $tweets = Tweet::with('user')->paginate();
         // dd($tweets);
 
         return view(
@@ -19,12 +27,17 @@ class ShowTweewts extends Component
         );
     }
 
+
+
     public function create()
     {
+
+        $this->validate();
+
         Tweet::create([
-            'content' => $this->message,
+            'content' => $this->content,
             'user_id' => 1
         ]);
-        $this->message = '';
+        $this->content = '';
     }
 }
