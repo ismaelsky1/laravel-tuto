@@ -9,9 +9,9 @@ class Tweet extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content','user_id'];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
