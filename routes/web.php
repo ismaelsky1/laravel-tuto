@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\{ShowTweewts};
 
 
-Route::get('tweets', ShowTweewts::class);
+Route::get('tweets', ShowTweewts::class)->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');

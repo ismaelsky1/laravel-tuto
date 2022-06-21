@@ -18,7 +18,7 @@ class ShowTweewts extends Component
     public function render()
     {
 
-        $tweets = Tweet::with('user')->paginate();
+        $tweets = Tweet::with('user')->latest()->paginate(10);
         // dd($tweets);
 
         return view(
@@ -34,10 +34,14 @@ class ShowTweewts extends Component
 
         $this->validate();
 
-        Tweet::create([
+        auth()->user()->tweets()->create([
             'content' => $this->content,
-            'user_id' => 1
         ]);
+
+        // Tweet::create([
+        //     'user_id' =>
+        //     'user_id' => auth()->user()->id
+        // ]);
         $this->content = '';
     }
 }
